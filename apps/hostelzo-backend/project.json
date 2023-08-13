@@ -1,0 +1,64 @@
+{
+  "name": "hostelzo-backend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/hostelzo-backend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/hostelzo-backend",
+        "main": "apps/hostelzo-backend/src/main.ts",
+        "tsConfig": "apps/hostelzo-backend/tsconfig.app.json",
+        "assets": ["apps/hostelzo-backend/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/hostelzo-backend/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "hostelzo-backend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "hostelzo-backend:build:development"
+        },
+        "production": {
+          "buildTarget": "hostelzo-backend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/hostelzo-backend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/hostelzo-backend/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
