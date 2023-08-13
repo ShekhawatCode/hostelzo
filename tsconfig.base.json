@@ -14,7 +14,33 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@hostelzo-mono-repo/api/api-messages": [
+        "libs/api/api-messages/src/index.ts"
+      ],
+      "@hostelzo-mono-repo/api/controller/admin-user-controller": [
+        "libs/api/controller/admin-user-controller/src/index.ts"
+      ],
+      "@hostelzo-mono-repo/api/controller/auth-controller": [
+        "libs/api/controller/auth-controller/src/index.ts"
+      ],
+      "@hostelzo-mono-repo/api/controller/countries-controller": [
+        "libs/api/controller/countries-controller/src/index.ts"
+      ],
+      "@hostelzo-mono-repo/api/controller/static-content-controller": [
+        "libs/api/controller/static-content-controller/src/index.ts"
+      ],
+      "@hostelzo-mono-repo/api/helper": ["libs/api/helper/src/index.ts"],
+      "@hostelzo-mono-repo/api/model/admin-user-model": [
+        "libs/api/model/admin-user-model/src/index.ts"
+      ],
+      "@hostelzo-mono-repo/api/model/country-model": [
+        "libs/api/model/country-model/src/index.ts"
+      ],
+      "@hostelzo-mono-repo/api/model/static-content-model": [
+        "libs/api/model/static-content-model/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
