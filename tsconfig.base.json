@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@hostelzo-mono-repo/api-interfaces": [
+        "libs/api-interfaces/src/index.ts"
+      ],
       "@hostelzo-mono-repo/api/api-messages": [
         "libs/api/api-messages/src/index.ts"
       ],
@@ -39,7 +42,8 @@
       ],
       "@hostelzo-mono-repo/api/model/static-content-model": [
         "libs/api/model/static-content-model/src/index.ts"
-      ]
+      ],
+      "@hostelzo-mono-repo/message": ["libs/message/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
