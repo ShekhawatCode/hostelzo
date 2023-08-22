@@ -8,7 +8,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: inherit;
+  font-family: var(--font-family);
   line-height: inherit;
   margin: 0;
 }

@@ -28,9 +28,9 @@ export const FIRST_NAME_MAX_LENGTH =
   'First name should not be greater than 50 characters.';
 export const LAST_NAME_MAX_LENGTH =
   'Last name should not be greater than 50 characters.';
-export const FIRST_NAME = 'Please enter your first name.';
+export const FIRST_NAME_REQUIRED = 'Please enter your first name.';
 export const USER_TYPE_REQUIRED = 'Please choose user type.';
-export const LAST_NAME = 'Please enter your last name.';
+export const LAST_NAME_REQUIRED = 'Please enter your last name.';
 export const PASSWORD = 'Please enter your password.';
 export const PASSWORD_MAX_LENGTH =
   'Password should not be greater than 15 characters.';
@@ -51,3 +51,7 @@ export const EMAIL_VERIFICATION_SUCCESS_USER =
   'Your email verified successfully.';
 export const EMAIL_VERIFY_LINK_EXPIRED =
   'Email verification link has been expired.';
+export const ADMIN_USER_CREATE_SUCCESS = 'Admin user created successfully.';
+export const EMAIL_REGISTERED = 'Your email is already registered with us.';
+export const ACCOUNT_APPROVAL =
+  'Your account is currently being reviewed by Admin. Please wait...';
