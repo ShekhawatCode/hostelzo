@@ -21,6 +21,9 @@
       "@hostelzo-mono-repo/api/api-messages": [
         "libs/api/api-messages/src/index.ts"
       ],
+      "@hostelzo-mono-repo/api/context/auth": [
+        "libs/api/context/auth/src/index.ts"
+      ],
       "@hostelzo-mono-repo/api/controller/admin-user-controller": [
         "libs/api/controller/admin-user-controller/src/index.ts"
       ],
@@ -43,6 +46,7 @@
       "@hostelzo-mono-repo/api/model/static-content-model": [
         "libs/api/model/static-content-model/src/index.ts"
       ],
+      "@hostelzo-mono-repo/context": ["libs/context/src/index.ts"],
       "@hostelzo-mono-repo/message": ["libs/message/src/index.ts"]
     }
   },

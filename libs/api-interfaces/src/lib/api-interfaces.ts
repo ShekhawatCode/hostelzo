@@ -48,3 +48,4 @@ export interface userForgotPasswordRequestType {
   };
   originalUrl: string;
 }
+export type GeneralObject = { [key: string]: any };

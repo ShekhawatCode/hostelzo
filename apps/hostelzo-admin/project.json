@@ -23,15 +23,18 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "hostelzo-admin:build",
-        "dev": true
+        "dev": true,
+        "proxyConfig": "apps/admin/proxy.conf.json"
       },
       "configurations": {
         "development": {
           "buildTarget": "hostelzo-admin:build:development",
+          "proxyConfig": "apps/admin/proxy.conf.json",
           "dev": true
         },
         "production": {
           "buildTarget": "hostelzo-admin:build:production",
+          "proxyConfig": "apps/admin/proxy.conf.json",
           "dev": false
         }
       }

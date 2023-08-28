@@ -5,6 +5,7 @@ import { compareSync, hashSync } from 'bcrypt';
 import {
   APIResponseType,
   AdminUserType,
+  userDataType,
 } from '@hostelzo-mono-repo/api-interfaces';
 import {
   ACCOUNT_APPROVAL,
@@ -16,6 +17,7 @@ import {
   ERROR_401,
   ERROR_500,
   FIRST_NAME_REQUIRED,
+  FORGOT_PASSWORD_SUCCESS,
   INVALID_EMAIL_PASS,
   LAST_NAME_REQUIRED,
   LOGIN_SUCCESS,
@@ -26,6 +28,7 @@ import {
 import {
   returnErrorResponse,
   returnSuccessResponse,
+  sendMail,
 } from '@hostelzo-mono-repo/api/helper';
 
 /**
@@ -59,7 +62,27 @@ export const checkEmail = async (email) => {
 };
 
 export const sendEmailVerificationMail = async (newUser) => {
-  console.log('hello');
+  // const content = await emailManagementModel.getEmailByKey(
+  //   'verificationMailUser'
+  // );
+  const content = 'verificationMailUser';
+  if (content) {
+    const replace = {
+      url: process.env.WEB_URL,
+      token: newUser.emailVerifyToken,
+    };
+    const match = "content[0].variables.split(',')";
+    let message = 'content[0].message';
+    for (let i = 0; i <= match.length - 1; i++) {
+      const msg = '{' + match[i] + '}';
+      message = message.replace(msg, replace[match[i]]);
+    }
+    sendMail({
+      to: newUser.email, // list of receivers
+      subject: 'content[0].subject', // Subject line
+      html: message,
+    });
+  }
 };
 
 export const creatAdminUser = async (request, response, next) => {
@@ -220,5 +243,91 @@ export const loginAdmin = async (request, response, next) => {
     return returnSuccessResponse(LOGIN_SUCCESS, userData.userResult, response);
   } catch (error) {
     next(error);
+  }
+};
+
+export const ForgotPasswordMail = async (email: string, token: string) => {
+  try {
+    let url;
+    const isAdmin = await isSuperAdmin(email);
+    if (isAdmin) {
+      url = process.env.ADMIN_URL;
+    } else {
+      url = process.env.WEB_URL;
+    }
+    const content = 'reset';
+    if (content) {
+      const replace = { url: url, token: token };
+      const match = "content[0].variables.split(',')";
+      let message = 'content[0].message';
+      for (let i = 0; i <= match.length - 1; i++) {
+        const msg = '{' + match[i] + '}';
+        message = message.replace(msg, replace[match[i]]);
+      }
+      // sendMail({
+      //   to: email, // list of receivers
+      //   subject: 'content[0].subject', // Subject line
+      //   html: message,
+      // });
+    }
+  } catch (error) {
+    return error;
+  }
+};
+
+export const verifyUserStatus = async (params, response, next) => {
+  try {
+    const result = await AdminUserModel.findOne({
+      email: 'sonsingh777@gmail.com',
+    });
+    if (result.status !== 'Active') {
+      return returnErrorResponse(ACCOUNT_BLOCKED, {}, response);
+    } else {
+      return await updateForgotPasswordInfoForUser(result);
+    }
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateForgotPasswordInfoForUser = async (data) => {
+  try {
+    const token = await generateJwtTokenForUser(data);
+    await AdminUserModel.updateOne(
+      {
+        _id: data._id,
+      },
+      { resetPasswordToken: token }
+    );
+
+    const result = { userResult: data, token: token };
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+export const forgotPasswordValidation = [
+  check('email').not().isEmpty().withMessage(EMAIL_REQUIRED),
+];
+export const forgotPasswordUser = async (params, response, next) => {
+  try {
+    console.log(params.id);
+
+    const emailExists = await checkEmail('sonsingh777@gmail.com');
+
+    if (!emailExists) {
+      return returnErrorResponse(NOT_REGISTERED_EMAIL, {}, response);
+    }
+    const data = await verifyUserStatus(params, response, next);
+
+    const userData = data as userDataType;
+    await ForgotPasswordMail(userData.userResult.email, userData.token);
+    return returnSuccessResponse(
+      FORGOT_PASSWORD_SUCCESS,
+      userData.userResult,
+      response
+    );
+  } catch (error) {
+    return error;
   }
 };

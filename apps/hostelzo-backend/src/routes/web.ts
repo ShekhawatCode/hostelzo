@@ -3,6 +3,8 @@ import express from 'express';
 import {
   adminUserCreateValidation,
   creatAdminUser,
+  forgotPasswordUser,
+  forgotPasswordValidation,
   loginAdmin,
 } from '@hostelzo-mono-repo/api/controller/admin-user-controller';
 
@@ -30,6 +32,10 @@ webRouter.get('/csrf-token', (req, res) => {
 webRouter.route('/adminUser').post(adminUserCreateValidation, creatAdminUser);
 
 webRouter.route('/adminLogin').post(loginAdmin);
+
+webRouter
+  .route('/forgot-password')
+  .post(forgotPasswordValidation, forgotPasswordUser);
 
 /**
  * ==============================
