@@ -22,8 +22,10 @@ import {
   LAST_NAME_REQUIRED,
   LOGIN_SUCCESS,
   NOT_REGISTERED_EMAIL,
+  OLD_PASSWORD_MATCH,
   PASSWORD_MAX_LENGTH,
   PASSWORD_REQUIRED,
+  SUCCESS,
 } from '@hostelzo-mono-repo/message';
 import {
   returnErrorResponse,
@@ -329,5 +331,53 @@ export const forgotPasswordUser = async (params, response, next) => {
     );
   } catch (error) {
     return error;
+  }
+};
+
+
+
+export const updatePassword = (req, res, next) => {
+  try {
+    const pass = hashSync(req.body.newPassword, 12);
+
+    AdminUserModel.findByIdAndUpdate(
+      req.body.id,
+      { password: pass },
+      { useFindAndModify: false }
+    )
+      .then((data) => {
+        return returnSuccessResponse(SUCCESS, data, res);
+      })
+      .catch((error) => {
+        console.log(error);
+        return returnErrorResponse(error, {}, res);
+      });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const changePassword = (req, res, next) => {
+  try {
+    AdminUserModel.getById(req.body.id)
+      .then((data) => {
+        if (data) {
+          const adminUser = data.toJSON() as AdminUserType;
+
+          if (compareSync(req.body.oldPassword, adminUser.password)) {
+            return updatePassword(req, res, next);
+          } else {
+            return returnErrorResponse(OLD_PASSWORD_MATCH, {}, res);
+          }
+        }
+
+        return returnErrorResponse(ERROR_500, {}, res);
+      })
+      .catch((error) => {
+        console.log('change password', error);
+        return returnErrorResponse(error, {}, res);
+      });
+  } catch (error) {
+    next(error);
   }
 };

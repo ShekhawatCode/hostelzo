@@ -55,3 +55,4 @@ export const ADMIN_USER_CREATE_SUCCESS = 'Admin user created successfully.';
 export const EMAIL_REGISTERED = 'Your email is already registered with us.';
 export const ACCOUNT_APPROVAL =
   'Your account is currently being reviewed by Admin. Please wait...';
+  export const SUCCESS = "Success!";

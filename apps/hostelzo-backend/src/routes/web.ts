@@ -2,10 +2,12 @@ import express from 'express';
 // import { logParams } from '@aitriage/api/helper';
 import {
   adminUserCreateValidation,
+  changePassword,
   creatAdminUser,
   forgotPasswordUser,
   forgotPasswordValidation,
   loginAdmin,
+  updatePassword,
 } from '@hostelzo-mono-repo/api/controller/admin-user-controller';
 
 // import {
@@ -36,6 +38,14 @@ webRouter.route('/adminLogin').post(loginAdmin);
 webRouter
   .route('/forgot-password')
   .post(forgotPasswordValidation, forgotPasswordUser);
+
+
+webRouter
+  .route('/reset-password')
+  .post( updatePassword);
+  webRouter
+  .route('/change-password')
+  .post(changePassword);
 
 /**
  * ==============================
