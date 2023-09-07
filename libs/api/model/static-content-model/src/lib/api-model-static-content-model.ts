@@ -35,7 +35,7 @@ const staticContentSchema = new mongoose.Schema({
 
 mongoose.pluralize(null);
 
-export const AdminUserModel: UserModelType = mongoose.model<UserDocument>(
+export const StaticContent: UserModelType = mongoose.model<UserDocument>(
   'StaticContent',
   staticContentSchema
 );

@@ -9,6 +9,7 @@ import {
   loginAdmin,
   updatePassword,
 } from '@hostelzo-mono-repo/api/controller/admin-user-controller';
+import { creatStaticContent } from '@hostelzo-mono-repo/api/controller/static-content-controller';
 
 // import {
 //   creatAdminUser,
@@ -39,6 +40,7 @@ webRouter
   .route('/forgot-password')
   .post(forgotPasswordValidation, forgotPasswordUser);
 
+webRouter.route('/creatStaticContent').post(creatStaticContent, creatAdminUser);
 
 webRouter
   .route('/reset-password')
