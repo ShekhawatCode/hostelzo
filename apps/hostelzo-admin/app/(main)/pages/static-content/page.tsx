@@ -19,6 +19,8 @@ import { classNames } from 'primereact/utils';
 import React, { useEffect, useRef, useState } from 'react';
 import { ProductService } from '../../../../demo/service/ProductService';
 import { Demo } from '../../../../types/types';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const Crud = () => {
   const emptyProduct: Demo.Product = {
@@ -474,15 +476,34 @@ const Crud = () => {
                 <small className="p-invalid">Name is required.</small>
               )}
             </div>
+
             <div className="field">
               <label htmlFor="description">Description</label>
-              <InputTextarea
-                id="description"
+              {/* <InputTextarea
                 value={product.description}
                 onChange={(e) => onInputChange(e, 'description')}
                 required
                 rows={3}
                 cols={20}
+              />{' '} */}
+              <CKEditor
+                id="description"
+                editor={ClassicEditor}
+                data="<p>Hello from CKEditor&nbsp;5!</p>"
+                onReady={(editor) => {
+                  // You can store the "editor" and use when it is needed.
+                  console.log('Editor is ready to use!', editor);
+                }}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  console.log({ event, editor, data });
+                }}
+                onBlur={(event, editor) => {
+                  console.log('Blur.', editor);
+                }}
+                onFocus={(event, editor) => {
+                  console.log('Focus.', editor);
+                }}
               />
             </div>
 
