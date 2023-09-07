@@ -18,6 +18,7 @@ const LoginPage = () => {
     {}
   );
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [checked, setChecked] = useState(false);
   const { layoutConfig } = useContext(LayoutContext);
 
@@ -28,9 +29,10 @@ const LoginPage = () => {
   );
   const handleRequestOTP = async () => {
     const data = {
-      email: 'sonsingh777@gmail.com',
-      password: '@123S123',
+      email: email,
+      password: password,
     };
+    
     await requestOTP(data, {
       onSuccess: () => {
         console.log('sonsingh', data);
@@ -84,6 +86,8 @@ const LoginPage = () => {
                 id="email1"
                 type="text"
                 placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full md:w-30rem mb-5"
                 style={{ padding: '1rem' }}
               />

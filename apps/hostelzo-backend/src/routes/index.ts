@@ -19,7 +19,7 @@ const routes = (app) => {
    * Web Admin Routes
    * ==============================
    */
-  app.use('/api/web', cookieParser(), csurfProtection, webRouter);
+  app.use('/api/web', cookieParser(), webRouter);
 
   /**
    * ==============================

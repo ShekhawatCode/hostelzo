@@ -40,6 +40,12 @@
       "@hostelzo-mono-repo/api/model/admin-user-model": [
         "libs/api/model/admin-user-model/src/index.ts"
       ],
+      "@hostelzo-mono-repo/api/model/blog": [
+        "libs/api/model/blog/src/index.ts"
+      ],
+      "@hostelzo-mono-repo/api/model/blog/server": [
+        "libs/api/model/blog/src/server.ts"
+      ],
       "@hostelzo-mono-repo/api/model/country-model": [
         "libs/api/model/country-model/src/index.ts"
       ],
@@ -47,7 +53,8 @@
         "libs/api/model/static-content-model/src/index.ts"
       ],
       "@hostelzo-mono-repo/context": ["libs/context/src/index.ts"],
-      "@hostelzo-mono-repo/message": ["libs/message/src/index.ts"]
+      "@hostelzo-mono-repo/message": ["libs/message/src/index.ts"],
+      "@myorg/hostelzo-blog": ["libs/api/model/blog/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

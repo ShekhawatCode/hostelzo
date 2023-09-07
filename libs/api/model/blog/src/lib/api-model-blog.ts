@@ -4,11 +4,13 @@ export interface UserModelType extends mongoose.Model<UserDocument> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [x: string]: any;
 }
-const staticContentSchema = new mongoose.Schema({
+const blogContentSchema = new mongoose.Schema({
   title: String,
-  short_description:String,
   description: String,
-  key:String,
+  author: String,
+  cover_image:String,
+  slug:String,
+  excerpt:String,
   status: {
     type: String,
     default: 'Active',
@@ -36,6 +38,6 @@ const staticContentSchema = new mongoose.Schema({
 mongoose.pluralize(null);
 
 export const AdminUserModel: UserModelType = mongoose.model<UserDocument>(
-  'StaticContent',
-  staticContentSchema
+  'BlogContent',
+  blogContentSchema
 );
