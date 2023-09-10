@@ -10,6 +10,7 @@ import {
   updatePassword,
 } from '@hostelzo-mono-repo/api/controller/admin-user-controller';
 import { creatStaticContent } from '@hostelzo-mono-repo/api/controller/static-content-controller';
+import { GetBlogById, changeBlogPostStatus, deleteBlogById, getAllBlogs, getBlogByUrl, getBlogLists, saveBlog, updateBlogById } from '@hostelzo-mono-repo/api/controller/blog-controller';
 
 // import {
 //   creatAdminUser,
@@ -49,6 +50,37 @@ webRouter
   .route('/change-password')
   .post(changePassword);
 
+
+/**
+ * ==============
+ * Blog Post Routes
+ * ==============
+ */
+
+
+webRouter
+    .route('/saveBlogPost')
+    .post(  saveBlog);
+
+webRouter
+.route('/getAllBlogPost').get(getAllBlogs);
+
+webRouter.route('/getBlogPostById/:id').get( GetBlogById);
+
+
+webRouter.route('/getBlogPostByUrl/:slug').get( getBlogByUrl);
+webRouter.route('/getBlogPostPublished').get( getBlogLists);
+
+webRouter
+    .route('/updateBlogPost')
+    .post( updateBlogById);
+
+webRouter
+    .route('/deleteBlogPost/:id')
+    .get( deleteBlogById);
+webRouter
+    .route('/updateBlogStatus')
+    .post( changeBlogPostStatus);
 /**
  * ==============================
  * Public Routes
@@ -58,3 +90,5 @@ webRouter
 webRouter.get('/', (req, res) => {
   res.send('Welcome aiTriage Web API');
 });
+
+

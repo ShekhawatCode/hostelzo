@@ -1,43 +1,70 @@
-import { UserDocument } from '@hostelzo-mono-repo/api-interfaces';
 import * as mongoose from 'mongoose';
-export interface UserModelType extends mongoose.Model<UserDocument> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [x: string]: any;
-}
-const blogContentSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  author: String,
-  cover_image:String,
-  slug:String,
-  excerpt:String,
-  status: {
-    type: String,
-    default: 'Active',
-    enum: ['Active', 'Inactive', 'Deleted', 'Pending'],
-  },
-  createdAt: Number,
-  updatedAt: Number,
-   createdBy: {
-    type: Object,
-    schema: {
-      id: String,
-      sortKey: String,
-      staffId: String,
-      hospitalId: String,
-      firstName: String,
-      lastName: String,
-      email: String,
-      userType: String,
-      status: String,
-      createdAt: Number,
+
+const schema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: [true],
     },
+    description: {
+      type: String,
+    },
+    // image: {
+    //   type: String,
+    // },
+    urlSlug: {
+      type: String,
+      unique: true,
+    },
+    status: {
+      type: String,
+      enum: ['draft', 'unpublished', 'published'],
+      default: 'published',
+    },
+    author: String,
+    excerpt: String,
+    // metaTags: {
+    //   type: String,
+    // },
+    // tags: {
+    //   type: Array,
+    // },
+    // createdBy: {
+    //   type: Object,
+    //   schema: {
+    //     id: String,
+    //     sortKey: String,
+    //     staffId: String,
+    //     hospitalId: String,
+    //     firstName: String,
+    //     lastName: String,
+    //     email: String,
+    //     userType: String,
+    //     status: String,
+    //     createdAt: Number,
+    //   },
+    // },
   },
-});
+  { timestamps: true }
+);
+
+/**
+ * Get All Services
+ * @param callback
+ */
+schema.statics.getAll = (callback) => {
+  const sort:any = { _id: -1 };
+  return Blog.find({}, callback).sort(sort);
+};
+
+/**
+ * Get Services by Id
+ * @param id
+ * @param callback
+ */
+schema.statics.getById = (id, callback) => {
+  return Blog.findById(id, callback);
+};
 
 mongoose.pluralize(null);
-
-export const AdminUserModel: UserModelType = mongoose.model<UserDocument>(
-  'BlogContent',
-  blogContentSchema
-);
+export const Blog = mongoose.models.Blog || mongoose.model<any>('Blog', schema);

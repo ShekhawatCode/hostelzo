@@ -30,6 +30,9 @@
       "@hostelzo-mono-repo/api/controller/auth-controller": [
         "libs/api/controller/auth-controller/src/index.ts"
       ],
+      "@hostelzo-mono-repo/api/controller/blog-controller": [
+        "libs/api/controller/blog-controller/src/index.ts"
+      ],
       "@hostelzo-mono-repo/api/controller/countries-controller": [
         "libs/api/controller/countries-controller/src/index.ts"
       ],
