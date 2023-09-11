@@ -9,7 +9,7 @@ import {
   loginAdmin,
   updatePassword,
 } from '@hostelzo-mono-repo/api/controller/admin-user-controller';
-import { creatStaticContent } from '@hostelzo-mono-repo/api/controller/static-content-controller';
+import { creatStaticContent, createStaticContentValidation, getAllStaticContent, staticContentGetById, staticContentGetByKey, updateStaticContent, updateStaticContentValidation } from '@hostelzo-mono-repo/api/controller/static-content-controller';
 import { GetBlogById, changeBlogPostStatus, deleteBlogById, getAllBlogs, getBlogByUrl, getBlogLists, saveBlog, updateBlogById } from '@hostelzo-mono-repo/api/controller/blog-controller';
 
 // import {
@@ -81,6 +81,31 @@ webRouter
 webRouter
     .route('/updateBlogStatus')
     .post( changeBlogPostStatus);
+
+
+/**
+ *===============================
+ * Static Content Routes
+ *================================
+ */
+webRouter
+    .route('/saveStaticContent')
+    .post(createStaticContentValidation, creatStaticContent);
+webRouter.route('/getAllStaticContent').get(getAllStaticContent);
+webRouter
+    .route('/staticContentGetBykey/:key')
+    .get( staticContentGetByKey);
+webRouter
+    .route('/staticContentGetById/:id')
+    .get( staticContentGetById);
+webRouter
+    .route('/updateStaticContent')
+    .post(
+        updateStaticContentValidation,
+        
+        updateStaticContent
+    );
+
 /**
  * ==============================
  * Public Routes
